@@ -1,5 +1,10 @@
 # Created by .ignore support plugin (hsz.mobi)
 ### Python template
+
+# Default ignored files
+/shelf/
+/workspace.xml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
