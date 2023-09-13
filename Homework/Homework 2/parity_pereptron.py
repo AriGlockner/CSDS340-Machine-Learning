@@ -14,17 +14,15 @@ class PerceptronModel:
     # Predictions for each epoch
     predictions_ = None
 
-    def __init__(self, eta=0.1, n_iterations=6, random_state=1):
+    def __init__(self, eta=0.1, n_iterations=100):
         """
         Parameters
         ----------
         eta : float - Learning rate (between 0.0 and 1.0)
-        random_state : int - Random number generator seed for random weight initialization.
         """
 
         self.n_iterations = n_iterations
         self.eta = eta
-        self.random_state = random_state
 
     def fit(self, X, y, w, b):
         # Initialize weights and bias units to the ones passed in
@@ -63,25 +61,18 @@ class PerceptronModel:
 
     def predict(self, X):
         """Return class label after unit step"""
-        return np.where(self.net_input(X) >= 0.0, 1, 0)
+        return np.where(self.net_input(X) >= 0.0, 0, 1)
 
     def test(self, X):
         predictions = []
 
         for xi, target in zip(X, y):
-            predict = self.predict(xi)
-            print(predict)
+            predict = min(self.predict(xi).sum(), 1)
+            # print(predict)
             predictions.append(predict)
-        print(predictions)
+        # print(predictions)
         return predictions
 
-
-# All possible inputs/outputs
-X = [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]]
-y = [1, 0, 0, 1, 0, 1, 1, 0]
-
-# Create a Perceptron
-perceptron = PerceptronModel()
 
 '''
 The parity problem returns 1 if the number of inputs that are 1 is even, and 0 otherwise. Can a
@@ -91,15 +82,54 @@ highest training set accuracy you are able to obtain with a Perceptron along wit
 achieve this accuracy.
 '''
 
-# Split the dataset into training and test sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+# All possible inputs/outputs
+X = [[0, 0, 0], [0, 0, 1], [0, 1, 0], [0, 1, 1], [1, 0, 0], [1, 0, 1], [1, 1, 0], [1, 1, 1]]
+y = [1, 0, 0, 1, 0, 1, 1, 0]
 
-# Train the perceptron
-# perceptron.fit(X, y)
+# Create a Perceptron
+# perceptron = PerceptronModel()
+
+# Split the dataset into training and test sets
+X_train = [[0, 0, 0], [0, 0, 1], [0, 1, 1], [1, 1, 0], [1, 1, 1]]
+X_test = [[0, 1, 0], [1, 0, 0], [1, 0, 1]]
+y_train = [1, 0, 1, 1, 0]
+y_test = [0, 1, 0]
+
+'''
+Test for the optimal learning rate
+'''
+best_accuracy = 0
+best_w = 0.0
+best_b = 0.0
+best_eta = 0.0
+
+w = 0.1
+b = 0.1
+eta=0.1
+for _ in range(9):
+    for __ in range(9):
+        perceptron = PerceptronModel(eta)
+
+        perceptron.fit(X_train, y_train, w, b)
+        accuracy = accuracy_score(y_test, perceptron.test(X_test))
+        print(accuracy)
+        if accuracy > best_accuracy:
+            best_accuracy = accuracy
+            best_w = w
+            best_b = b
+            best_eta = eta
+
+        b += 0.1
+    w += 0.1
+
+print('Best Accuracy: ', best_accuracy)
+print('Best Weights: ', best_w)
+print('Best Bias: ', best_b)
+print('Best Learning Rate: ', best_eta)
+
+'''
 perceptron.fit(X_train, y_train, 0.1, 0.1)
 
-perceptron.test(X)
-# print(y_test, perceptron.test(X))
-# accuracy = accuracy_score(y_test, perceptron.test(X_test))
-# accuracy = perceptron.predictions_ = perceptron.test(X_test, y_test)
-# print('Accuracy: ', accuracy)
+accuracy = accuracy_score(y_test, perceptron.test(X_test))
+print('Accuracy: ', accuracy)
+'''
