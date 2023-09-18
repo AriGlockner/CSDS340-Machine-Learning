@@ -62,7 +62,7 @@ decision region. Submit your plotted decision region.
 Yes, the Gaussian kernel SVM can perfectly separate the two classes.
 '''
 
-# Show the plotted decision region for the ideal SVM
+# Show the plotted decision region for the ideal SVM (aka the rbf/ Gaussian kernel SVM)
 svm = SVC(kernel='rbf', C=2.0, random_state=1)
 svm.fit(X, y)
 plot_data([X, y], svm, "Ideal SVM")
