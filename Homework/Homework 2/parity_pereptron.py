@@ -1,7 +1,5 @@
 import numpy as np
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 
 
 class PerceptronModel:
@@ -110,9 +108,9 @@ for _ in range(9):
     for __ in range(9):
         perceptron = PerceptronModel(eta)
 
-        perceptron.fit(X_train, y_train, w, b)
-        accuracy = accuracy_score(y_test, perceptron.test(X_test))
-        print(accuracy)
+        perceptron.fit(X, y, w, b)
+        accuracy = accuracy_score(y, perceptron.test(X))
+
         if accuracy > best_accuracy:
             best_accuracy = accuracy
             best_w = w
@@ -122,14 +120,74 @@ for _ in range(9):
         b += 0.1
     w += 0.1
 
+print('The Perceptron cannot learn the parity problem because there isn\'t enough training sets.')
+print('That being said, here is the output of the best Perceptron:')
+
+print('\nTraining the perceptron to the training sets that are unique:')
 print('Best Accuracy: ', best_accuracy)
 print('Best Weights: ', best_w)
 print('Best Bias: ', best_b)
 print('Best Learning Rate: ', best_eta)
 
 '''
-perceptron.fit(X_train, y_train, 0.1, 0.1)
+Training the perceptron with all possible inputs
 
-accuracy = accuracy_score(y_test, perceptron.test(X_test))
-print('Accuracy: ', accuracy)
+Doing this because the directions says so, which doesn't make sense to me since I would want unique examples to be 
+test cases
+'''
+
+best_accuracy = 0
+best_w = 0.0
+best_b = 0.0
+best_eta = 0.0
+
+w = 0.1
+b = 0.1
+eta=0.1
+for _ in range(9):
+    for __ in range(9):
+        perceptron = PerceptronModel(eta)
+
+        perceptron.fit(X, y, w, b)
+        accuracy = accuracy_score(y, perceptron.test(X))
+
+        if accuracy > best_accuracy:
+            best_accuracy = accuracy
+            best_w = w
+            best_b = b
+            best_eta = eta
+
+        b += 0.1
+    w += 0.1
+
+print('\nTraining the Perceptron to all of the training sets:')
+print('Best Accuracy: ', best_accuracy)
+print('Best Weights: ', best_w)
+print('Best Bias: ', best_b)
+print('Best Learning Rate: ', best_eta)
+
+
+'''
+Input/Output Table:
+X1 X2 X3 Y
+0  0  0  1
+0  0  1  0
+0  1  0  0
+0  1  1  1
+1  0  0  0
+1  0  1  1
+1  1  0  1
+1  1  1  0
+'''
+
+'''
+Network Structure:
+
+Input Layer (3 neurons)
+   |
+   v
+Weighted Sum (Linear Activation)
+   |
+   v
+Output Layer (1 neuron with step activation)
 '''
