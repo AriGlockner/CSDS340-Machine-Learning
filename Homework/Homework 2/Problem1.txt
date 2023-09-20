@@ -1,0 +1,47 @@
+Problem 1:
+Data:
+[[1, 0] [2, 0] [3, 1] [4, 1]]
+
+a) You wish to train a Perceptron on the given data using the Perceptron algorithm. Does the algo converge? Justify your answer
+The Perceptron Convergence Theorem guarantees that weights will converge if the two classes are linearly separable. Since this data is linearly separable, the perceptron algorithm will converge by the Perceptron Convergence Theorem.
+
+b) Assume that an Adaline model trained to this data has weight and bias of w = 0.1 and b = 0.1. Compute the total loss over the training examples
+L(w, b) = 1/n * ∑i=1n [y(i) - σ(z(i))]2
+
+σ(z(i)) = w1x1(i) + b
+σ(z(1)) = 0.1 * 1 + 0.1 = 0.2
+σ(z(2)) = 0.1 * 2 + 0.1 = 0.3
+σ(z(3)) = 0.1 * 3 + 0.1 = 0.4
+σ(z(4)) = 0.1 * 4 + 0.1 = 0.5
+
+L(w, b) = 1/n * ∑i=1n [y(i) - σ(z(i))]2 = 1/4 * ((0 - 0.2)^2 + (0 - 0.3)^2 + (1 - 0.4)^2 + (1 - 0.5)^2) = 0.185
+L(w, b) = 0.185
+
+c) Initialize the Perceptron weight and bias to w = 0.1 and b = 0.1. Using step size n = 0.1, compute the values of the weight and bias after 1 epoch of the Perceptron algorithm, iterating through the inputs in the following order: 1, 2, 3, 4.
+𝜂 = 0.1
+w = 0.1, b = 0.1
+
+ŷ = w * x + b
+wj = wj + 𝜂 [y - ŷ] xj(i)
+b = b + 𝜂 [y - ŷ]
+
+[1, 0]:
+ŷ = 0.1 * 1 + 0.1 = 0.2
+w := 0.1 + 0.1 * [0 - 0.2] * 1 = 0.08
+b := 0.1 + 0.1 * [0 - 0.2] = 0.08
+
+[2, 0]:
+ŷ = 0.08 * 2 + 0.08 = 0.24
+w := 0.08 + 0.1 * [0 - 0.24] * 2 = 0.032
+b := 0.08 + 0.1 * [0 - 0.24] = 0.056
+
+[3, 1]:
+ŷ = 0.032 * 3 + 0.056 = 0.152
+w := 0.032 + 0.1 * [1 - 0.152] * 3 = 0.2864
+b := 0.056 + 0.1 * [1 - 0.152] = 0.1408
+
+[4, 1]:
+ŷ = 0.2864 * 4 + 0.1408 = 1.2864
+w := 0.2864 + 0.1 * [1 - 1.2864] * 4 = 0.1718
+b := 0.1408 + 0.1 * [1 - 1.2864] = 0.1122
+

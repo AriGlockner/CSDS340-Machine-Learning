@@ -1,0 +1,35 @@
+Problem 3:
+Class 1: (1, 1), (1, 2), (2, 1)
+Class 2: (0, 0), (1, 0), (0, 1)
+
+Find the weight vector and bias for the optimal separating hyperplane, the support vectors, and the margin. Use a hard margin linear SVM.
+
+w * x + b = 0 -> boundary
+w * x + b = 1 -> for points in class 1
+w * x + b = -1 -> for points in class 2
+
+x	    y
+-------------
+(1, 1)	1
+(1, 2)	1
+(2, 1)	1
+(0, 0)	-1
+(1, 0)	-1
+(0, 1)	-1
+
+(w * (1, 1) + b) - (w * (0, 0) + b) = 1 - (-1) = 2 -> w - 0 = 2 -> w = 2
+(w * (1, 2) + b) - (w * (1, 0) + b) = 1 - (-1) = 2 -> w - w = 2 -> 0 = 2 -> doesn't provide any info
+(w * (2, 1) + b) - (w * (0, 1) + b) = 1 - (-1) = 2 -> 2w - 0 = 2 -> w = 1
+
+w = 1
+
+w * (1, 1) + b = 1
+1 * 1 + b = 1
+b = 0
+
+Margin = 2 / ||w|| = 2/1 = 2
+
+For the optimal separating hyperplane:
+Weight vector: w = (1, 1)
+Bias: b = 0
+Margin: 2
