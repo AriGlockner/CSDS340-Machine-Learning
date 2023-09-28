@@ -37,3 +37,21 @@ for dimension in range(2, 11):
 plot_graph(percent, 'Percent of Points within the Unit Hypersphere')
 # Plot part B
 plot_graph(mean_distance, 'Mean Distance between a Data Point and its 1-Nearest Neighbor')
+
+'''
+Analysis:
+Part A: As the number of dimensions increases, the percent of points within the unit hypersphere decreases.
+
+This makes sense because as the number of dimensions increases, there are more points within the unit hypersphere that
+will need to be included in the calculation. And as the number of calculations increases, the percent of points within
+the unit hypersphere will decrease because the unit hypersphere is a constant and the number of dimensions increases.
+
+
+Part B: As the number of dimensions increases, the mean distance between a data point and its 1-nearest neighbor
+increases.
+
+This makes sense because as the number of dimensions increases, there will be more dimensions that will need to be taken
+into account when calculating the distance between a data point and its 1-nearest neighbor. And as the number of
+dimensions increases, the mean distance between a data point and its 1-nearest neighbor will increase because the
+distance between a data point and its 1-nearest neighbor will be calculated using more dimensions.
+'''
