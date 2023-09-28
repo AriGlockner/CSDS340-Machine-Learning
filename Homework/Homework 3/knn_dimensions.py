@@ -1,38 +1,39 @@
 import numpy as np
+from matplotlib import pyplot as plt
+from sklearn.neighbors import NearestNeighbors
 
 
-def generate_data(d):
-    """
-    Generate 1,000 random data points in d dimensions, where each dimension is uniformly distributed between -1 and 1
-
-    :param d: number of dimensions
-    :return: 1,000 random data points in d dimensions
-    """
-    return np.random.uniform(-1, 1, (1000, d))
+def plot_graph(ydata, y_label):
+    plt.plot(range(2, 11), ydata)
+    plt.xlabel('Dimensions')
+    plt.ylabel(y_label)
+    plt.show()
+    pass
 
 
-# Plot the following measures as you increase the number of dimensions d from 2 to 10:
+# Set the random seed, so I can use the same random set of data in my tests
 np.random.seed(1)
 
-# Get the data
-data = []
-for i in range(2, 11):
-    data.append(np.random.uniform(-1, 1, (1000, i)))
-print(data)
+# Part A: Calculate the percent of points within the unit hypersphere
+percent = []
 
-'''
-a)
-The fraction of data points within the unit hypersphere, i.e. the fraction of data points with
-distance ≤ 1 from the origin (all zero coordinates). This measures roughly what fraction
-of data points are close to a typical (all zero) data point
-'''
+# Part B: Calculate the mean distance between a data point and its 1-nearest neighbor
+mean_distance = []
 
+# For each dimension from 2 to 10
+for dimension in range(2, 11):
+    # Generate data for each dimension
+    data = np.random.uniform(-1, 1, (1000, dimension))
 
-'''
-b)
-The mean distance between a data point and its 1-nearest neighbor divided by the mean
-distance between any pair of data points. This measures how close a nearest neighbor is
-relative to a randomly selected data point. (As the number of dimensions increases, the
-mean distance between any pair of data points also increases, so we divide by this to pro-
-vide a fair comparison.)
-'''
+    # Part A - Calculate the number of points within the unit hypersphere
+    percent.append(sum(1 for point in data if np.linalg.norm(point) <= 1) / len(data))
+
+    # Part B - Calculate the mean distance between a data point and its 1-nearest neighbor
+    distances, indices = (NearestNeighbors(n_neighbors=2, algorithm='ball_tree').fit(data)
+                          .kneighbors(data))
+    mean_distance.append(np.mean(distances[:, 1]))
+
+# Plot part A
+plot_graph(percent, 'Percent of Points within the Unit Hypersphere')
+# Plot part B
+plot_graph(mean_distance, 'Mean Distance between a Data Point and its 1-Nearest Neighbor')
