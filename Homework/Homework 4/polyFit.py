@@ -119,17 +119,27 @@ plt.title('Weight vector for train data with Ridge')
 plt.show()
 
 """
-a) The MSE for the training data decreases as the degree increases. This is because the model is
+Writeup:
+a) Plot the mean squared error (MSE) for the training data and the test data on the same axes
+as a function of maximum degree 𝑑. Include axis labels and a legend in your plot. Explain
+the trend in the plot.
+
+The MSE for the training data decreases as the degree increases. This is because the model is
 overfitting the training data. The MSE for the test data increases as the degree increases. This
 is because the model is overfitting the training data and not generalizing well to the test data.
 
-b) The weight vector increases as the degree increases. This is because the model is overfitting
+
+b) Plot the normalized squared magnitude of the weight vector ‖𝒘‖2/𝑑 on a log scale as
+function of 𝑑. Include axis labels and a legend in your plot. Explain the trend in the plot.
+
+The weight vector increases as the degree increases. This is because the model is overfitting
 the training data and the weight vector is increasing to fit the training data.
 
-c) The MSE for the training data decreases as the degree increases. This is because the model is
+
+c) Create the same two plots using ridge regression (L2 penalty) with regularization strength
+𝛼 = 10−6 instead of OLS and compare the results with OLS.
+
+The MSE for the training data decreases as the degree increases. This is because the model is
 overfitting the training data. The MSE for the test data increases as the degree increases. This
 is because the model is overfitting the training data and not generalizing well to the test data.
-
-d) The weight vector increases as the degree increases. This is because the model is overfitting
-the training data and the weight vector is increasing to fit the training data.
 """
